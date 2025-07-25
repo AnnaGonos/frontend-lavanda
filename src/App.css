@@ -1,38 +1,368 @@
-.App {
-  text-align: center;
+
+
+li, ol, ul, span, p, a, input, button, label, select, option, strong, small {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(12px, 1.5vw, 16px);
+}
+
+h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: clamp(32px, 3vw, 405px);
+}
+
+h2 {
+    font-size: clamp(26px, 2.4vw, 30px);
+}
+
+h3 {
+    font-size: clamp(24px, 2.2vw, 26px);
+}
+
+small {
+    font-size: clamp(10px, 1.2vw, 14px);
+}
+
+
+a {
+    text-decoration: none;
+    color: inherit;
+    outline: none;
+}
+
+b {
+    font-weight: 500;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding-bottom: 40px;
+}
+
+/*section:first-child {*/
+/*    margin-top: 80px;*/
+/*}*/
+
+section {
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 80px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+form h2, form h3 {
+    margin-bottom: 20px;
+}
+
+
+form input, form select {
+    padding: 10px;
+    border-radius: 5px;
+    border: #cccccc 1px solid;
+    background-color: white;
+    font-weight: 600;
+}
+
+form button {
+    text-decoration: underline;
+    border: none;
+    background-color: white;
+}
+
+form button:hover {
+    color: #6C4795;
+}
+
+/*textarea {*/
+/*    max-height: 50px;*/
+/*    overflow: hidden;*/
+/*}*/
+
+
+[class*="__button"] {
+    display: flex;
+    flex-direction: column;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 15px 20px;
+    border: 1px solid #000000;
+    width: fit-content;
+    height: fit-content;
+    color: white;
+    background-color: #000000;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+[class*="__button"]:hover {
+    background-color: #D5B8F1;
+    color: #000000;
+    border-color: #D5B8F1;
+}
+
+#modal-root {
+    z-index: 9999;
+}
+
+.auth-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 0;
+    justify-content: center;
+    overflow: hidden;
+    padding: 5% 10%;
+    height: 100%;
+}
+
+.auth-modal-content, .auth-modal-img {
+    height: 80%;
+}
+
+.auth-modal-close {
+    right: 0;
+    margin-right: 11%;
+    margin-top: 6%;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 50%;
+    border: none;
+    background-color: white;
+    z-index: 10001;
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+}
+
+.auth-modal-close:hover {
+    padding: 10px;
+    border-radius: 50%;
+    border: none;
+    background-color: #D5B8F1;
+}
+
+
+.auth-modal-content {
+    /*max-width: 100%;*/
+    padding: 40px 30% 40px 10%;
+    height: calc(80% - 80px);
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    transition: transform 3s ease-in-out;
+    border-radius: 10px 0 0 10px;
+}
+
+.auth-modal-img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 0 10px 10px 0;
+    position: relative;
+}
+
+.auth-modal-content.open {
+    transform: translateX(0);
+}
+
+.auth-modal__link, .auth-modal__button {
+    margin-top: 10px;
+}
+
+
+.auth-modal-overlay {
+    z-index: 9999;
+}
+
+.auth-modal__button {
+    width: 100%;
+}
+
+.protected-route {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25%;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
+}
+
+.scrolling-text-container {
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+    border-top: black solid 1px;
+    border-bottom: black solid 1px;
+    padding: 10px 0;
+    position: relative;
+}
+
+.scrolling-text {
+    display: flex;
+    gap: 40px;
+    padding-left: 100%;
+    animation: scroll-left 50s linear infinite;
+}
+
+.scrolling-text p {
+    text-transform: uppercase;
+    font-weight: 900;
+}
+
+.favorites-empty {
+    padding: 0 40px;
+    align-items: center;
+    justify-content: center;
+}
+
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(-95%);
+    }
+    100% {
+        transform: translateX(-250%);
+    }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
+
+
+@media screen and (max-width: 700px) {
+
+    .auth-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        grid-template-columns: 1fr;
+        gap: 0;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        padding: 1% 2% 2% 2%;
+        height: 100%;
+    }
+
+    .auth-modal-close {
+        right: 0;
+        margin-right: 10%;
+        top: 17%;
+        margin-top: 0;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .auth-modal-close:hover {
+        padding: 10px;
+        border-radius: 50%;
+        border: none;
+        background-color: #D5B8F1;
+    }
+
+
+    .auth-modal-content {
+        width: calc(90% - 40px);
+        padding: 20px 20px 20px 20px;
+        height: 400px;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .auth-modal-img {
+        height: 200px;
+        width: 90%;
+        object-fit: cover;
+        border-radius: 0 0 10px 10px;
+        position: relative;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    section {
+        margin-top: 60px;
+    }
+
+    .favorites-empty {
+        padding: 0 20px;
+    }
+
+}
+

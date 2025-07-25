@@ -1,0 +1,42 @@
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 40px;
+    margin-top: 80px;
+}
+
+.breadcrumbs button {
+    background: none;
+    border: none;
+}
+
+.breadcrumbs span {
+    cursor: pointer;
+    color: #777777
+}
+
+.breadcrumbs span:hover, .breadcrumbs .breadcrumbs__current {
+    color: #6C4795;
+}
+
+.breadcrumbs button img {
+    height: 20px;
+    width: 20px;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: #e4e4e4;
+    align-items: center;
+    justify-content: center;
+}
+
+.breadcrumbs button img:hover {
+    background-color: #D5B8F1;
+}
+
+@media screen and (max-width: 600px) {
+    .breadcrumbs {
+        padding: 0 20px;
+        margin-top: 60px;
+    }
+}

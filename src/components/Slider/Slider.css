@@ -1,0 +1,117 @@
+.slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.slider-text {
+    text-align: center;
+}
+
+.slider {
+    position: relative;
+    width: 100%;
+
+    text-align: center;
+}
+
+.slider-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 3fr 2fr;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+
+.slider-image img {
+    width: 100%;
+    object-fit: cover;
+    height: 500px;
+    border-radius: 0 10px 10px 0;
+}
+
+.slider-image:nth-child(1) img {
+    border-radius: 10px 0 0 10px;
+}
+
+
+.slider-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 40px;
+    margin: 0 20px;
+    height: calc(100% - 84px);
+    border: black solid 1px;
+}
+
+.slider-center h2 {
+    margin-bottom: 10px;
+}
+
+.slider-center p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #cccccc;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: #D5B8F1;
+}
+
+@media screen and (max-width: 800px) {
+    .slider-wrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 100px 1fr;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .slider-image:nth-child(1) img {
+        width: 100%;
+        object-fit: cover;
+        height: 100px;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .slider-image img {
+        width: 100%;
+        object-fit: cover;
+        height: 100px;
+        border-radius: 0 0 10px 10px;
+    }
+
+    .slider-center {
+        height: 400px;
+        border: none;
+        padding: 20px 0;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .slider-wrapper {
+        padding: 0 20px;
+    }
+
+}

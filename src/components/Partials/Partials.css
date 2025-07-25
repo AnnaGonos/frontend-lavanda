@@ -1,0 +1,33 @@
+.section-header {
+    display: flex;
+    gap: 40px;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    padding: 0 40px;
+}
+
+
+/*.section-header__title {*/
+/*    font-size: 2.5rem;*/
+/*    margin: 0;*/
+/*}*/
+
+.section-header__comment {
+    font-size: 25px;
+    font-family: 'RozoviiChulok', sans-serif;
+}
+
+
+
+@media screen and (max-width: 600px) {
+    .section-header {
+        display: flex;
+        gap: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 20px;
+    }
+}
+
+
+

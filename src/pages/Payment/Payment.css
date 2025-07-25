@@ -1,0 +1,35 @@
+.payment-info__list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 0 40px;
+}
+
+.payment-info__item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 40px;
+}
+
+
+@media screen and (max-width: 900px) {
+    .payment-info__item {
+        display: grid;
+        grid-template-columns: 1fr;
+        column-gap: 40px;
+    }
+}
+
+
+
+@media screen and (max-width: 900px) {
+    .payment-info__list {
+        padding: 0 20px;
+    }
+
+    .payment-info__item {
+        display: grid;
+        grid-template-columns: 1fr;
+        column-gap: 40px;
+    }
+}
