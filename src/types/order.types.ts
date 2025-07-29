@@ -1,25 +1,6 @@
 import {Product} from "./product.types";
+import {OrderStatus} from "./orderStatuses";
 
-
-export type OrderStatus =
-    | 'created'
-    | 'processing'
-    | 'paid'
-    | 'shipped'
-    | 'completed'
-    | 'cancelled';
-
-export const getOrderStatusLabel = (status: OrderStatus): string => {
-    const labels: Record<OrderStatus, string> = {
-        created: 'Создан',
-        processing: 'Обрабатывается',
-        paid: 'Оплачен',
-        shipped: 'Доставляется',
-        completed: 'Выполнен',
-        cancelled: 'Отменён',
-    };
-    return labels[status];
-};
 
 export interface OrderItem {
     quantity: number;
@@ -33,8 +14,10 @@ export interface Order {
     orderNumber: string;
     createdAt: string;
     totalAmount: number;
-    status: 'created' | 'processing' | 'paid' | 'shipped' | 'completed' | 'cancelled';
+    status: OrderStatus;
     deliveryMethod: 'доставка' | 'самовывоз';
+    deliveryDate: string;
+    deliveryPeriod: 'утро' | 'день' | 'вечер';
     deliveryAddress?: string;
     items: OrderItem[];
 }

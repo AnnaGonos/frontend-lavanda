@@ -14,6 +14,12 @@ interface AccountInfoProps {
 export const AccountInfo: React.FC<AccountInfoProps> = ({ user, onLogout }) => {
     const navigate = useNavigate();
 
+    const handleLogout = () => {
+        onLogout();
+
+        navigate('/', { replace: true });
+    };
+
     return (
         <div className="dashboard__user-info" style={{ backgroundImage: `url(${backgroundImage})` }}>
             <div className="dashboard__user-header user-header">
@@ -25,11 +31,10 @@ export const AccountInfo: React.FC<AccountInfoProps> = ({ user, onLogout }) => {
                     <p className="user-header__phone">{user.phone}</p>
                     <p className="user-header__email">{user.email}</p>
 
-                    <button type="button" className="dashboard__logout-button"
-                        onClick={() => {
-                            onLogout();
-                            navigate('/');
-                        }}
+                    <button
+                        type="button"
+                        className="dashboard__logout-button"
+                        onClick={handleLogout}
                     >
                         Выйти
                     </button>

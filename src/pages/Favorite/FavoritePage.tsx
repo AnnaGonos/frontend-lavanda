@@ -27,7 +27,7 @@ export const FavoritesPage: React.FC = () => {
             }
 
             try {
-                const res = await axios.get('http://localhost:5000/api/favorites', {
+                const res = await axios.get('https://backend-lavanda.onrender.com/api/favorites', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -58,8 +58,7 @@ export const FavoritesPage: React.FC = () => {
         if (!isFav) return;
 
         try {
-            const res = await axios.post(
-                'http://localhost:5000/api/favorites/toggle',
+            const res = await axios.post('https://backend-lavanda.onrender.com/api/favorites/toggle',
                 { productId },
                 {
                     headers: {

@@ -41,7 +41,7 @@ export const CatalogPage = () => {
 
     const fetchProducts = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/products');
+            const res = await fetch('https://backend-lavanda.onrender.com/api/products');
             if (!res.ok) throw new Error('Ошибка загрузки товаров');
             const data = await res.json();
             setProducts(data);
@@ -60,7 +60,7 @@ export const CatalogPage = () => {
         }
 
         try {
-            const res = await fetch('http://localhost:5000/api/favorites', {
+            const res = await fetch('https://backend-lavanda.onrender.com/api/favorites', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

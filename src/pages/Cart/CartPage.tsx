@@ -34,7 +34,7 @@ export const CartPage: React.FC = () => {
             }
 
             try {
-                const res = await axios.get<CartItem[]>('http://localhost:5000/api/cart/', {
+                const res = await axios.get<CartItem[]>('https://backend-lavanda.onrender.com/api/cart/', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -78,7 +78,7 @@ export const CartPage: React.FC = () => {
         }
 
         try {
-            await axios.patch(`http://localhost:5000/api/cart/item/${cartId}/increment`, {}, {
+            await axios.patch(`https://backend-lavanda.onrender.com/api/cart/item/${cartId}/increment`, {}, {
                 headers: {Authorization: `Bearer ${token}`},
             });
 
@@ -104,7 +104,7 @@ export const CartPage: React.FC = () => {
         }
 
         try {
-            await axios.patch(`http://localhost:5000/api/cart/item/${cartId}/decrement`, {}, {
+            await axios.patch(`https://backend-lavanda.onrender.com/api/cart/item/${cartId}/decrement`, {}, {
                 headers: {Authorization: `Bearer ${token}`},
             });
 
@@ -132,7 +132,7 @@ export const CartPage: React.FC = () => {
         }
 
         try {
-            await axios.delete(`http://localhost:5000/api/cart/item/${cartId}`, {
+            await axios.delete(`https://backend-lavanda.onrender.com/api/cart/item/${cartId}`, {
                 headers: {Authorization: `Bearer ${token}`},
             });
 
@@ -158,7 +158,7 @@ export const CartPage: React.FC = () => {
         if (!window.confirm('Вы уверены, что хотите очистить корзину?')) return;
 
         try {
-            await axios.delete('http://localhost:5000/api/cart/clear', {
+            await axios.delete('https://backend-lavanda.onrender.com/api/cart/clear', {
                 headers: {Authorization: `Bearer ${token}`},
             });
 
@@ -230,59 +230,75 @@ export const CartPage: React.FC = () => {
                             </button>
                         </div>
 
-                        {cartItems.map((item) => (
-                            <div className="cart__item" key={item.id}>
-                                <div className="cart__item-image">
-                                    <img src={item.product.image} alt={item.product.name}/>
-                                </div>
+                        {cartItems.map((item) => {
+                            // Проверяем наличие товара
+                            const isProductAvailable = item.product.stock > 0;
+                            const isProductInStock = item.product.stock >= item.quantity;
 
-                                <div className="cart__item-info">
-                                    <h3 className="cart__item-name">{item.product.name}</h3>
-                                    <p className="cart__item-composition">{item.product.composition}</p>
-                                </div>
-
-                                <div className="cart__item-prices">
-                                    {item.product.discount ? (
-                                        <>
-                                              <span className="cart__price cart__price--discount">
-                                                  {formatPrice(item.product.discount * item.quantity)} ₽
-                                              </span>
-                                            <span className="cart__price cart__price--old">
-                                                    {formatPrice(item.product.price * item.quantity)} ₽
-                                                </span>
-                                        </>
-                                    ) : (
-                                        <span
-                                            className="cart__price">{formatPrice(item.product.price * item.quantity)} ₽</span>
-                                    )}
-                                </div>
-
-                                <div className="cart__item-controls">
-                                    <div className="cart__quantity-controls">
-                                        <button className="cart__btn cart__btn--decrease"
-                                                onClick={() => decrement(item.id)}
-                                                disabled={item.quantity <= 1}
-                                        >
-                                            <BsDash/>
-                                        </button>
-                                        <span className="cart__quantity">{item.quantity}</span>
-                                        <button className="cart__btn cart__btn--increase"
-                                                onClick={() => increment(item.id)}
-                                                disabled={item.quantity >= item.product.stock}
-                                        >
-                                            <BsPlus/>
-                                        </button>
+                            return (
+                                <div className="cart__item" key={item.id}>
+                                    <div className="cart__item-image">
+                                        <img src={item.product.image} alt={item.product.name}/>
                                     </div>
 
-                                    <button className="cart__remove-item" onClick={() => removeItem(item.id)}>
-                                        <BiTrash/>
-                                    </button>
+                                    <div className="cart__item-info">
+                                        <h3 className="cart__item-name">{item.product.name}</h3>
+                                        <p className="cart__item-composition">{item.product.composition}</p>
+                                        {!isProductAvailable && (
+                                            <p className="cart__item-out-of-stock">Товар закончился</p>
+                                        )}
+                                        {isProductAvailable && !isProductInStock && (
+                                            <p className="cart__item-low-stock">Осталось только {item.product.stock} шт.</p>
+                                        )}
+                                    </div>
+
+                                    <div className="cart__item-prices">
+                                        {item.product.discount ? (
+                                            <>
+                                                <span className="cart__price cart__price--discount">
+                                                    {formatPrice((item.product.discount || item.product.price) * item.quantity)} ₽
+                                                </span>
+                                                <span className="cart__price cart__price--old">
+                                                    {formatPrice(item.product.price * item.quantity)} ₽
+                                                </span>
+                                            </>
+                                        ) : (
+                                            <span className="cart__price">
+                                                {formatPrice(item.product.price * item.quantity)} ₽
+                                            </span>
+                                        )}
+                                    </div>
+
+                                    <div className="cart__item-controls">
+                                        <div className="cart__quantity-controls">
+                                            <button className="cart__btn cart__btn--decrease"
+                                                onClick={() => decrement(item.id)}
+                                                disabled={item.quantity <= 1 || !isProductAvailable}
+                                            >
+                                                <BsDash/>
+                                            </button>
+                                            <span className="cart__quantity">{item.quantity}</span>
+                                            <button className="cart__btn cart__btn--increase"
+                                                onClick={() => increment(item.id)}
+                                                disabled={
+                                                    item.quantity >= item.product.stock ||
+                                                    !isProductAvailable ||
+                                                    item.quantity >= item.product.stock
+                                                }
+                                            >
+                                                <BsPlus/>
+                                            </button>
+                                        </div>
+
+                                        <button className="cart__remove-item" onClick={() => removeItem(item.id)}>
+                                            <BiTrash/>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
 
-                    {/* оформление заказа */}
                     <div className="cart__summary">
                         <h2 className="cart__summary-title">Ваша корзина</h2>
 
@@ -303,7 +319,11 @@ export const CartPage: React.FC = () => {
                             <span>{totalPrice} ₽</span>
                         </div>
 
-                        <button className="cart__button-checkout" onClick={() => navigate('/lk/checkout')}>
+                        <button
+                            className="cart__button-checkout"
+                            onClick={() => navigate('/lk/checkout')}
+                            disabled={cartItems.some(item => item.product.stock <= 0)}
+                        >
                             Перейти к оформлению
                         </button>
                     </div>
@@ -313,4 +333,3 @@ export const CartPage: React.FC = () => {
     );
 };
 
-export default CartPage;

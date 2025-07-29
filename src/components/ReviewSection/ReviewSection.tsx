@@ -36,7 +36,7 @@ const reviews = [
 
 const ReviewsSection: React.FC = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const visibleCount = 2; // сколько отзывов видно одновременно
+    const visibleCount = 2;
 
     const next = () => {
         if (currentIndex < reviews.length - visibleCount) {

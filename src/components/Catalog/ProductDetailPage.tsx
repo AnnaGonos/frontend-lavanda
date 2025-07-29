@@ -62,7 +62,7 @@ export const ProductDetailPage = () => {
 
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/products/${id}`);
+                const response = await fetch(`https://backend-lavanda.onrender.com/api/products/${id}`);
                 if (!response.ok) throw new Error('Товар не найден');
                 const data = await response.json();
                 if (!isMounted) return;
@@ -108,7 +108,7 @@ export const ProductDetailPage = () => {
 
         try {
             const res = await axios.post(
-                'http://localhost:5000/api/favorites/toggle',
+                'https://backend-lavanda.onrender.com/api/favorites/toggle',
                 { productId: product.id },
                 {
                     headers: {
@@ -141,6 +141,8 @@ export const ProductDetailPage = () => {
             }
         }
     };
+
+    const isProductAvailable = (product?.stock ?? 0) > 0;
 
     if (loading) {
         return <LoadingOverlay text="Загружаем товар..." />;
@@ -186,7 +188,13 @@ export const ProductDetailPage = () => {
                             )}
                         </p>
                         <div className="product-detail__actions">
-                            <button className="product-detail__button">Добавить в корзину</button>
+                            <button
+                                className="product-detail__button"
+                                disabled={!isProductAvailable}
+                                title={!isProductAvailable ? 'Товар отсутствует' : ''}
+                            >
+                                {isProductAvailable ? 'Добавить в корзину' : 'В архиве'}
+                            </button>
 
                             <button
                                 className={
@@ -229,3 +237,4 @@ export const ProductDetailPage = () => {
 };
 
 export default ProductDetailPage;
+

@@ -1,15 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import {Product} from '../../types/product.types';
-import {useAuthContext} from "../../context/AuthContext";
-import {Link, useNavigate} from 'react-router-dom';
-import {FaRegHeart} from '@react-icons/all-files/fa/FaRegHeart';
-import {FaHeart} from '@react-icons/all-files/fa/FaHeart';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import {useFavoriteContext} from "../../context/FavoriteContext";
-import {NotificationType} from "../Notification/Notification";
-import {useCartContext} from "../../context/CartContext";
-import {formatPrice} from "../../utils/formatPrice";
-
+import { FaRegHeart } from '@react-icons/all-files/fa/FaRegHeart';
+import { FaHeart } from '@react-icons/all-files/fa/FaHeart';
+import { useAuthContext } from '../../context/AuthContext';
+import { useFavoriteContext } from '../../context/FavoriteContext';
+import { useCartContext } from '../../context/CartContext';
+import { formatPrice } from '../../utils/formatPrice';
+import { Product } from '../../types/product.types';
+import { NotificationType } from '../Notification/Notification';
 
 interface ProductCardProps {
     product: Product;
@@ -24,15 +23,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                                                             onNotify,
                                                             onToggleFavorite,
                                                         }) => {
-    const {token, openAuthModal} = useAuthContext();
-    const {setFavoriteCount} = useFavoriteContext();
+    const { token, openAuthModal } = useAuthContext();
+    const { setFavoriteCount } = useFavoriteContext();
     const [isFavorite, setIsFavorite] = useState(initialIsFavorite);
     const [inCart, setInCart] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { cartCount, setCartCount } = useCartContext();
 
-    const API_URL = 'http://localhost:5000/api';
+    const API_URL = 'https://backend-lavanda.onrender.com/api';
+
+    const isProductAvailable = product.stock !== undefined && product.stock > 0;
 
     useEffect(() => {
         const checkIfInCart = async () => {
@@ -73,12 +74,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             return;
         }
 
+        if (!isProductAvailable) {
+            onNotify('Товар закончился', 'error');
+            return;
+        }
+
         setLoading(true);
 
         try {
             await axios.post(
                 `${API_URL}/cart/add`,
-                {productId: product.id, quantity: 1},
+                { productId: product.id, quantity: 1 },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -99,11 +105,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
     const goToCart = (e: React.MouseEvent) => {
         e.preventDefault();
+        e.stopPropagation();
         navigate('/lk/cart');
     };
 
     const toggleFavorite = async (e: React.MouseEvent) => {
         e.preventDefault();
+        e.stopPropagation();
         if (loading) return;
 
         if (!token) {
@@ -118,7 +126,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         try {
             const res = await axios.post(
                 `${API_URL}/favorites/toggle`,
-                {productId: product.id},
+                { productId: product.id },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -181,9 +189,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 </p>
 
                 <div className="product-card__actions">
-                    <button className={inCart ? 'product-card__link product-card__link--in-cart' : 'product-card__link'}
-                            onClick={inCart ? goToCart : addToCart} disabled={loading}>
-                        {inCart ? 'В корзине' : 'В корзину'}
+                    <button
+                        className={
+                            inCart
+                                ? 'product-card__link product-card__link--in-cart'
+                                : 'product-card__link'
+                        }
+                        onClick={inCart ? goToCart : addToCart}
+                        disabled={loading || (!isProductAvailable && !inCart)}
+                    >
+                        {inCart
+                            ? 'В корзине'
+                            : (isProductAvailable ? 'В корзину' : 'Товар закончился')
+                        }
                     </button>
                 </div>
             </div>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Подтверждение заказа {{order_number}}</title>
+  <meta charset="utf-8">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body style="display: flex; flex-direction: column;font-family: 'Montserrat', Arial, sans-serif; line-height: 1.6;color: #333333;
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      width: 100%;
+      background-image: url('https://i.pinimg.com/1200x/1f/b8/bb/1fb8bb803c2f557a3a7e872fb009701f.jpg');">
+
+<div class="email-container" style="display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      justify-content: center;
+      padding: 40px 40px 60px 40px;
+      margin: 5% auto 5% auto;">
+    <h1 style="color: #6C4795;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-top: 0;">Заказ успешно оформлен!</h1>
+    <p style="margin: 0; padding: 0">Здравствуйте, <strong>{{customer_name}}</strong>!</p>
+    <p style="margin: 0; padding: 0">Благодарим вас за заказ в нашем магазине "Лаванда". Номер вашего заказа: <strong>{{order_number}}</strong>.</p>
+
+
+    <div style="text-align: center; margin: 30px 0 60px 0;">
+      <a href="{{order_url}}" style=" display: inline-block;
+      padding: 12px 24px;
+      background-color: #000000;
+      color: white !important;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;">Перейти к заказу</a>
+    </div>
+
+    <div class="footer" style=" margin-top: 30px;
+      font-size: 14px;
+      color: #666666;
+      text-align: center;">
+      <p style="margin: 0; padding: 0">
+        Если у вас возникли вопросы, свяжитесь с нами по адресу  <a style="color: #6C4795;" href="mailto:gonosanna@mail.ru">gonosanna@mail.ru</a>.
+      </p>
+    </div>
+</div>
+</body>
+</html>

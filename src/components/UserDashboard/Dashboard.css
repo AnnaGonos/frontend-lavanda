@@ -188,8 +188,12 @@
 
 
 
-.order-header__info, .order-header__order-total, .status-badge {
+.order-header__info, .order-header__order-total, .status-badge--dashboard {
     margin-top: 12px;
+}
+
+.order-details__delivery-info h4 {
+    margin-bottom: 10px;
 }
 
 .order-header__icon {
@@ -318,14 +322,15 @@
     }
 
 
-    .order-header__info, .order-header__order-total, .status-badge {
+    .order-header__info, .order-header__order-total, .status-badge--dashboard {
         margin-top: 0;
     }
 
 
-    .status-badge {
+    .status-badge--dashboard {
         grid-row: 2;
         grid-column: 2;
+        padding: 0;
     }
 
     .order-header__order-total {

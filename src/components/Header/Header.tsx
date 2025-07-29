@@ -34,7 +34,7 @@ export const Header: React.FC = () => {
             }
 
             try {
-                const res = await fetch('http://localhost:5000/api/favorites', {
+                const res = await fetch('https://backend-lavanda.onrender.com/api/favorites', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

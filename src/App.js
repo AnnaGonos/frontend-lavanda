@@ -13,13 +13,11 @@ import {ProtectedRoute} from "./routing/ProtectedRoute";
 import {PageWrapper} from "./components/Layout/PageWrapper";
 import {AuthProvider} from "./context/AuthContext";
 import {NotificationProvider} from "./context/NotificationContext";
-import {AdminPanel} from "./components/AdminPanel/AdminPanel";
 import {AdminRoute} from "./routing/AdminRoute";
 import {Portal} from "./components/Portal/Portal";
-import {AdminPanelButton} from "./components/AdminPanel/Forms/AdminPanelButton";
+import {AdminPanelButton} from "./components/AdminPanel/AdminPanelButton";
 import {ProductsTab} from "./components/AdminPanel/Products/ProductsTab";
-import {DeliveryTab} from "./components/AdminPanel/DeliveryTab";
-import {OrdersTab} from "./components/AdminPanel/OrdersTab";
+import {OrdersTab} from "./components/AdminPanel/Orders/OrdersTab";
 import {ReviewsTab} from "./components/AdminPanel/ReviewsTab";
 import ProductDetailPage from "./components/Catalog/ProductDetailPage";
 import {CatalogPage} from "./components/Catalog/Catalog";
@@ -29,6 +27,7 @@ import {CartPage} from "./pages/Cart/CartPage";
 import {CartProvider} from "./context/CartContext";
 import {CheckoutPage} from "./pages/Cart/CheckoutPage";
 import {OrderSuccessPage} from "./pages/Cart/OrderSuccessPage";
+import {OrderDetails} from "./components/AdminPanel/Orders/OrderDetails";
 
 const MainApp = () => {
 
@@ -98,8 +97,6 @@ const MainApp = () => {
                 <Route path="/lk" element={<Dashboard/>}/>
                 <Route path="/lk/orders" element={<Dashboard/>}/>
 
-
-                <Route path="/admin" element={<AdminRoute><PageWrapper><AdminPanel/></PageWrapper></AdminRoute>}/>
                 <Route path="/admin/products"
                        element={<AdminRoute><PageWrapper><ProductsTab/></PageWrapper></AdminRoute>}/>
 
@@ -115,11 +112,11 @@ const MainApp = () => {
                 />
 
                 <Route
-                    path="/admin/delivery"
+                    path="/admin/orders/:id"
                     element={
                         <AdminRoute>
                             <PageWrapper>
-                                <DeliveryTab/>
+                                <OrderDetails />
                             </PageWrapper>
                         </AdminRoute>
                     }

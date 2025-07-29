@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { User } from '../types/user.type';
+import { getCurrentUser, getToken } from '../services/auth.service';
 
 interface AuthContextType {
     isAuthModalOpen: boolean;
@@ -27,18 +28,40 @@ export const useAuthContext = () => {
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
     const [modalView, setModalView] = useState<'login' | 'register'>('login');
-    const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
-    const [user, setUser] = useState<User | null>(null);
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!token);
+    const [token, setTokenState] = useState<string | null>(null);
+    const [user, setUserState] = useState<User | null>(null);
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
     useEffect(() => {
-        const savedToken = localStorage.getItem('token');
-        const savedUser = localStorage.getItem('user');
+        const initializeAuth = () => {
+            const savedToken = getToken();
+            const savedUser = getCurrentUser();
 
-        if (savedToken) setToken(savedToken);
-        if (savedUser) setUser(JSON.parse(savedUser));
+            if (savedToken) {
+                setTokenState(savedToken);
+                setIsAuthenticated(true);
+            }
 
-        setIsAuthenticated(!!savedToken);
+            if (savedUser) {
+                setUserState(savedUser);
+            }
+        };
+
+        initializeAuth();
+
+        const handleStorageChange = () => {
+            const savedToken = getToken();
+            const savedUser = getCurrentUser();
+
+            setTokenState(savedToken);
+            setUserState(savedUser);
+            setIsAuthenticated(!!savedToken);
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+        };
     }, []);
 
     const openAuthModal = () => {
@@ -61,19 +84,36 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const login = (newToken: string, userData: User) => {
         localStorage.setItem('token', newToken);
         localStorage.setItem('user', JSON.stringify(userData));
-        setToken(newToken);
-        setUser(userData);
+        setTokenState(newToken);
+        setUserState(userData);
         setIsAuthenticated(true);
+
+
+        window.dispatchEvent(new CustomEvent('userStateChanged', {
+            detail: { isAuthenticated: true, token: newToken }
+        }));
     };
 
     const logout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        setToken(null);
-        setUser(null);
+        setTokenState(null);
+        setUserState(null);
         setIsAuthenticated(false);
         closeAuthModal();
-        window.dispatchEvent(new Event('storage'));
+
+
+        window.dispatchEvent(new CustomEvent('userStateChanged', {
+            detail: { isAuthenticated: false, token: null }
+        }));
+    };
+
+    const setToken = (token: string | null) => {
+        setTokenState(token);
+    };
+
+    const setUser = (user: User | null) => {
+        setUserState(user);
     };
 
     return (
@@ -97,4 +137,3 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         </AuthContext.Provider>
     );
 };
-

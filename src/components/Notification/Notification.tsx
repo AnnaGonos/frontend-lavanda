@@ -18,10 +18,28 @@ export const Notification: React.FC<NotificationProps> = ({ message, type, onClo
         return () => clearTimeout(timer);
     }, [onClose]);
 
+    useEffect(() => {
+        const handleEscape = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        };
+
+        document.addEventListener('keydown', handleEscape);
+        return () => document.removeEventListener('keydown', handleEscape);
+    }, [onClose]);
+
     return (
-        <div className={`notification notification--${type}`}>
-            <span>{message}</span>
-            <button className="notification__close" onClick={onClose}>×</button>
+        <div className={`notification notification--${type}`} onClick={onClose}>
+            <span className="notification__message">{message}</span>
+            <button className="notification__close" aria-label="Закрыть уведомление"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    onClose();
+                }}
+            >
+                ×
+            </button>
         </div>
     );
 };

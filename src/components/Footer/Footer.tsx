@@ -33,8 +33,8 @@ const Footer = () => {
                                 </svg>
                             </a>
                         </div>
-                        <p className="footer__socials-insta">* принадлежит компании Meta, которая признана
-                            экстремистской и запрещена на территории РФ</p>
+                        <small>* принадлежит компании Meta, которая признана
+                            экстремистской и запрещена на территории РФ</small>
                     </div>
                 </div>
 
@@ -94,7 +94,7 @@ const Footer = () => {
 
                     <div className="footer__email">
                         <h4 className="footer__title">Почта</h4>
-                        <p className="footer__email">lavanda_ptz@mail.ru</p>
+                        <p className="footer__email">lavanda.ptz@mail.ru</p>
                     </div>
                 </div>
             </div>

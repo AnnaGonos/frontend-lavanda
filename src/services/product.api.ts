@@ -1,10 +1,28 @@
 import apiClient from "./apiClient";
+import {Product} from "../types/product.types";
+
+
+export interface PaginatedProductsResponse {
+    products: Product[];
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+}
+
+
 
 export const productApi = {
-    getAll: async () => {
-        const response = await apiClient.get('/api/admin-products');
+    getAll: async (page: number = 1, limit: number = 20, filter?: 'active' | 'archived' | 'all') => {
+        const params: any = { page, limit };
+        if (filter && filter !== 'all') {
+            params.filter = filter;
+        }
+
+        const response = await apiClient.get<PaginatedProductsResponse>('/api/admin-products', { params });
         return response.data;
     },
+
     add: async (formData: FormData) => {
         const response = await apiClient.post('/api/admin-products/add', formData, {
             headers: {
@@ -26,5 +44,6 @@ export const productApi = {
         return response.data;
     },
 };
+
 
 

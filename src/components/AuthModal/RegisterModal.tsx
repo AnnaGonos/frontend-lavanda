@@ -6,6 +6,8 @@ import { registerUser, loginUser } from '../../services/auth.service';
 import { useNavigate } from 'react-router-dom';
 import InputMask from 'react-input-mask';
 import { useAuthContext } from '../../context/AuthContext';
+import { useCartContext } from '../../context/CartContext';
+import { useFavoriteContext } from '../../context/FavoriteContext';
 
 const schema = yup.object().shape({
     firstName: yup.string().required('Имя обязательно'),
@@ -18,11 +20,13 @@ const schema = yup.object().shape({
 type FormData = yup.InferType<typeof schema>;
 
 export const RegisterModal: React.FC = () => {
-    const { closeAuthModal, toggleToLogin } = useAuthContext();
+    const { closeAuthModal, toggleToLogin, login: authLogin } = useAuthContext();
+    const { refreshCart } = useCartContext();
+    const { refreshFavorites } = useFavoriteContext();
     const navigate = useNavigate();
 
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
-        resolver: schema && yupResolver(schema),
+    const { register, handleSubmit, formState: { errors }, setError } = useForm<FormData>({
+        resolver: yupResolver(schema),
     });
 
     const [serverError, setServerError] = useState('');
@@ -30,11 +34,28 @@ export const RegisterModal: React.FC = () => {
     const onSubmit = async (data: FormData) => {
         try {
             await registerUser(data);
-            await loginUser({ phone: data.phone, password: data.password });
+
+            const loginResponse = await loginUser({
+                phone: data.phone,
+                password: data.password
+            });
+
+            authLogin(loginResponse.accessToken, loginResponse.user);
+
+            await Promise.all([
+                refreshCart(),
+                refreshFavorites()
+            ]);
+
             closeAuthModal();
             navigate('/lk');
         } catch (err: any) {
-            setServerError(err.response?.data?.message || 'Ошибка регистрации');
+            const message = err.response?.data?.message || 'Ошибка регистрации';
+            setServerError(message);
+            setError('phone', {
+                type: 'manual',
+                message: message
+            });
         }
     };
 
@@ -43,26 +64,24 @@ export const RegisterModal: React.FC = () => {
             <h2>Регистрация</h2>
 
             <input {...register('firstName')} placeholder="Имя" />
-            {errors.firstName && <p>{errors.firstName.message}</p>}
+            {errors.firstName && <p className="error-message">{errors.firstName.message}</p>}
 
             <input {...register('lastName')} placeholder="Фамилия" />
-            {errors.lastName && <p>{errors.lastName.message}</p>}
+            {errors.lastName && <p className="error-message">{errors.lastName.message}</p>}
 
             <input {...register('email')} placeholder="Email" />
-            {errors.email && <p>{errors.email.message}</p>}
+            {errors.email && <p className="error-message">{errors.email.message}</p>}
 
             <InputMask mask="+7 (999) 999-99-99" {...register('phone')} placeholder="Телефон" />
-            {errors.phone && <p>{errors.phone.message}</p>}
+            {errors.phone && <p className="error-message">{errors.phone.message}</p>}
 
             <input type="password" {...register('password')} placeholder="Пароль" />
-            {errors.password && <p>{errors.password.message}</p>}
+            {errors.password && <p className="error-message">{errors.password.message}</p>}
 
-            {serverError && <p style={{ color: 'red' }}>{serverError}</p>}
+            {serverError && <p className="error-message">{serverError}</p>}
 
             <button className="auth-modal__button" type="submit">Зарегистрироваться</button>
-            <button type="button" onClick={toggleToLogin}>Назад</button>
+            <button type="button" onClick={toggleToLogin} className="auth-modal__link-back">Назад</button>
         </form>
     );
 };
-
-

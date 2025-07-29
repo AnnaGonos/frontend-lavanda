@@ -12,6 +12,8 @@ import {CartItem} from "../../types/product.types";
 import {DeliveryAddressSection} from "../../components/AddressInput/DeliveryAddressSection";
 import {User} from "../../types/user.type";
 import {LoadingOverlay} from "../../components/LoadingOverlay/LoadingOverlay";
+import {sendOrderNotification} from "../../services/telegram.service";
+import { sendOrderConfirmationEmail } from '../../services/emailService.service';
 
 
 export const CheckoutPage: React.FC = () => {
@@ -46,13 +48,12 @@ export const CheckoutPage: React.FC = () => {
             setBonusToUse(0);
         }
     }, [useBonus, user, formData.deliveryMethod, cartItems]);
-
     useEffect(() => {
         const fetchCart = async () => {
             if (!token) return;
 
             try {
-                const res = await axios.get('http://localhost:5000/api/cart/', {
+                const res = await axios.get('https://backend-lavanda.onrender.com/api/cart/', {
                     headers: {Authorization: `Bearer ${token}`},
                 });
                 setCartItems(res.data);
@@ -66,13 +67,12 @@ export const CheckoutPage: React.FC = () => {
 
         fetchCart();
     }, [token]);
-
     useEffect(() => {
         const fetchUserData = async () => {
             if (!token) return;
 
             try {
-                const res = await axios.get<User>('http://localhost:5000/api/users/me', {
+                const res = await axios.get<User>('https://backend-lavanda.onrender.com/api/users/me', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 
@@ -90,21 +90,10 @@ export const CheckoutPage: React.FC = () => {
         fetchUserData();
     }, [token, setUser]);
 
-    useEffect(() => {
-        if (user) {
-            setFormData(prev => ({
-                ...prev,
-                recipientName: user.firstName || '',
-                recipientPhone: user.phone || '',
-            }));
-        }
-    }, [user]);
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const {name, value} = e.target;
         setFormData(prev => ({...prev, [name]: value}));
     };
-
     const handleSelfRecipientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const checked = e.target.checked;
         setIsSelfRecipient(checked);
@@ -123,7 +112,6 @@ export const CheckoutPage: React.FC = () => {
             }));
         }
     };
-
     const validateForm = (): boolean => {
         const {recipientName, recipientPhone, deliveryMethod, deliveryAddress, deliveryDate} = formData;
 
@@ -165,7 +153,6 @@ export const CheckoutPage: React.FC = () => {
 
         return true;
     };
-
     const getTotalAmount = () => {
         let total = cartItems.reduce((sum, item) => {
             const price = item.product.discount ?? item.product.price;
@@ -178,7 +165,6 @@ export const CheckoutPage: React.FC = () => {
 
         return total;
     };
-
     const getFinalAmount = () => {
         const total = getTotalAmount();
         return useBonus && bonusToUse ? total - bonusToUse : total;
@@ -191,7 +177,7 @@ export const CheckoutPage: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!token) return;
+        if (!token || !user) return;
 
         if (!validateForm()) return;
 
@@ -199,15 +185,36 @@ export const CheckoutPage: React.FC = () => {
 
         try {
             const res = await axios.post(
-                'http://localhost:5000/api/order/create-from-cart',
+                'https://backend-lavanda.onrender.com/api/order/create-from-cart',
                 {
                     ...formData,
                     useBonusPoints: useBonus ? bonusToUse : 0,
                 },
                 {
-                    headers: {Authorization: `Bearer ${token}`},
+                    headers: { Authorization: `Bearer ${token}` },
                 }
             );
+
+            try {
+                await sendOrderNotification(res.data);
+                console.log('📤 Уведомление флористам отправлено успешно.');
+            } catch (notificationError: any) {
+                console.warn('⚠️ Не удалось отправить уведомление в Telegram:', notificationError?.message || notificationError);
+            }
+
+            try {
+                console.log('📤 Отправка email подтверждения заказа клиенту...');
+
+                const emailResult = await sendOrderConfirmationEmail(res.data, user.email, user.firstName);
+
+                if (emailResult.success) {
+                    console.log('✅ Email подтверждения заказа отправлен клиенту на', user.email);
+                } else {
+                    console.warn('⚠️ Не удалось отправить email подтверждения клиенту:', emailResult.error);
+                }
+            } catch (emailError: any) {
+                console.error('❌ Ошибка при вызове функции отправки email:', emailError);
+            }
 
             showNotification('Заказ оформлен!', 'success');
             navigate(`/lk/order/success/${res.data.orderNumber}`);

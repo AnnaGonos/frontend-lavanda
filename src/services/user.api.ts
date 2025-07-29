@@ -10,8 +10,6 @@ export const getUserProfile = async (): Promise<User> => {
         throw new Error('Токен не найден');
     }
 
-    console.log('Отправляем токен:', token);
-
     try {
         const response = await axios.get(`${API_URL}/me`, {
             headers: {

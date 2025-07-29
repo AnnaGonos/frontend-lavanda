@@ -9,7 +9,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {LoadingOverlay} from "../LoadingOverlay/LoadingOverlay";
 import {AccountInfo} from "./AccountInfo";
 import {EditAccount} from "./EditAccount";
-import {ActiveOrders} from "./ActiveOrders";
+import {Orders} from "./Orders";
 
 
 export const Dashboard: React.FC = () => {
@@ -85,7 +85,7 @@ export const Dashboard: React.FC = () => {
                 <div className="dashboard__container">
                     {activeTab === 'account' && <AccountInfo user={user} onLogout={logout} />}
                     {activeTab === 'edit' && <EditAccount user={user} onUpdateUser={refetchUser} />}
-                    {activeTab === 'orders' && <ActiveOrders userId={user.id} />}
+                    {activeTab === 'orders' && <Orders userId={user.id} />}
                 </div>
             </section>
         </>

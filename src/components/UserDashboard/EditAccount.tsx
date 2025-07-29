@@ -3,7 +3,7 @@ import axios from 'axios';
 import { User } from '../../types/user.type';
 import { useNotification } from '../../context/NotificationContext';
 
-const API_URL = 'http://localhost:5000/api/users/me';
+const API_URL = 'https://backend-lavanda.onrender.com/api/users/me';
 
 interface EditAccountProps {
     user: User;
@@ -48,7 +48,7 @@ export const EditAccount: React.FC<EditAccountProps> = ({ user, onUpdateUser }) 
 
             if (response.status === 200) {
                 showNotification('Данные успешно обновлены', 'success');
-                onUpdateUser?.(); // вызываем обновление
+                onUpdateUser?.();
             }
         } catch (err: any) {
             const message =

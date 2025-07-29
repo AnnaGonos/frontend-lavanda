@@ -9,7 +9,7 @@ const contactItems = [
     {title: 'Telegram', link: 'https://t.me/lavandapartizansk', text: '@lavandapartizansk'},
     {title: 'WhatsApp', link: 'https://wa.me/79146627911?text=Здравствуйте', text: '+7 914 662-79-11'},
     {title: 'Instagram*', link: 'https://www.instagram.com/lavanda_prt/', text: '@lavanda_prt'},
-    {title: 'Email', link: 'mailto:lavanda_ptz@mail.ru', text: 'lavanda_ptz@mail.ru'}
+    {title: 'Email', link: 'mailto:lavanda.ptz@mail.ru', text: 'lavanda.ptz@mail.ru'}
 ];
 
 const Contacts = ({children}: { children: React.ReactNode }) => {

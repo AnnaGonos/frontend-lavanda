@@ -1,8 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-
 import chevronLeft from '../../assets/images/chevron-left.svg';
-import './Breadcrumbs.css';
+
 
 interface BreadcrumbsProps {
     currentTitle?: string;
@@ -19,10 +18,6 @@ const pathMap: Record<string, string> = {
     '/lk': 'Личный кабинет',
     '/lk/orders': 'Заказы',
     '/lk/edit': 'Настройки',
-    '/admin': 'Админ-панель',
-    '/admin/products': 'Товары',
-    '/admin/orders': 'Заказы',
-    '/admin/reviews': 'Отзывы',
 };
 
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ currentTitle }) => {
@@ -64,8 +59,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ currentTitle }) => {
                                 style={{ cursor: 'pointer' }}
                                 role="button"
                                 tabIndex={0}
-                                aria-label={`Перейти в ${breadcrumbName}`}
-                            >
+                                aria-label={`Перейти в ${breadcrumbName}`}>
                 {breadcrumbName}
               </span>
                         )}

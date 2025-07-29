@@ -60,38 +60,34 @@ export const YandexMap: React.FC<YandexMapProps> = ({ onAddressChange, initialAd
             setMap(newMap);
             setPlacemark(newPlacemark);
 
-            // прии перетаскивании метки — обновляем адрес
             newPlacemark.events.add('dragend', () => {
                 const coords = newPlacemark.geometry.getCoordinates();
                 reverseGeocode(coords);
             });
 
-            // при клике на карту — перемещаем метку и обновляем адрес
             newMap.events.add('click', (e: any) => {
                 const coords = e.get('coords');
                 newPlacemark.geometry.setCoordinates(coords);
                 reverseGeocode(coords);
             });
 
-            //центрируем если  был начальный адрес
             if (initialAddress && address) {
                 newMap.setCenter(coords);
             }
         };
 
-        // обратное геокодирование -- координаты → адрес
         const reverseGeocode = (coords: [number, number]) => {
             ymaps.geocode(coords, { results: 1 }).then((res: any) => {
                 const firstObj = res.geoObjects.get(0);
                 if (firstObj) {
                     const fullAddr = firstObj.getAddressLine();
                     setAddress(fullAddr);
-                    buildFullAddress(fullAddr); // собираем полный адрес
+                    buildFullAddress(fullAddr);
                 }
             });
         };
 
-        if (initialAddress) { // инициализация карты
+        if (initialAddress) {
             ymaps.geocode(initialAddress).then((res: any) => {
                 const firstObj = res.geoObjects.get(0);
                 if (firstObj) {
