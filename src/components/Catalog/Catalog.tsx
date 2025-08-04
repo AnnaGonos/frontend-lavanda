@@ -130,10 +130,6 @@ export const CatalogPage = () => {
         })
             .then(async (res) => {
                 const text = await res.text();
-                if (text.trim().startsWith('__|')) {
-                    console.error('API избранного вернул ASCII-баннер');
-                    return [];
-                }
                 return JSON.parse(text);
             })
             .then((data) => {
