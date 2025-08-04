@@ -1,5 +1,6 @@
 import './Footer.css';
 import logotype from '../../assets/images/logotype.jpg';
+import {Link} from "react-router-dom";
 
 const Footer = () => {
     return (
@@ -42,23 +43,27 @@ const Footer = () => {
                     <h4 className="footer-menu__title">Каталог</h4>
                     <ul className="footer-menu__list">
                         <li className="footer-menu__item">
-                            <a href="" className="footer-menu__link">Монобукет</a>
+                            <Link to="/catalog?category=монобукет" className="footer-menu__link">Монобукет</Link>
                         </li>
                         <li className="footer-menu__item">
-                            <a href="" className="footer-menu__link">Дуобукет</a>
+                            <Link to="/catalog?category=дуобукет" className="footer-menu__link">Дуобукет</Link>
                         </li>
                         <li className="footer-menu__item">
-                            <a href="" className="footer-menu__link">Свадебные букеты</a>
+                            <Link to="/catalog?category=цветочные+композиции" className="footer-menu__link">Цветочные композиции</Link>
                         </li>
                         <li className="footer-menu__item">
-                            <a href="" className="footer-menu__link">Вазы и подарки</a>
+                            <Link to="/catalog?category=свадебные+букеты" className="footer-menu__link">Свадебные букеты</Link>
                         </li>
                         <li className="footer-menu__item">
-                            <a href="" className="footer-menu__link">Подарочный сертификат</a>
+                            <Link to="/catalog?category=комнатные+растения" className="footer-menu__link">Комнатные растения</Link>
                         </li>
                         <li className="footer-menu__item">
-                            <a href="" className="footer-menu__link">Все для сада</a>
+                            <Link to="/catalog?category=открытки" className="footer-menu__link">Открытки</Link>
                         </li>
+                        {/*<li className="footer-menu__item">*/}
+                        {/*    <Link to="/catalog?category=подарочный+сертификат" className="footer-menu__link">Подарочный сертификат</Link>*/}
+                        {/*</li>*/}
+
                     </ul>
                 </div>
 

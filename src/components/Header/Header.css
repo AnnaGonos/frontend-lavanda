@@ -57,6 +57,7 @@
 
 .submenu__item {
     padding: 8px 12px;
+    display: inline-block;
 }
 
 .submenu__item:hover {
@@ -67,7 +68,6 @@
     text-decoration: none;
     color: #333;
     font-size: 0.95rem;
-    display: block;
 }
 
 .submenu__link:hover {
@@ -193,8 +193,9 @@
 .submenu {
     position: absolute;
     top: 100%;
-    left: -20px;
-    min-width: 180px;
+    left: -40px;
+    min-width: 200px;
+    max-width: 250px;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 10px;

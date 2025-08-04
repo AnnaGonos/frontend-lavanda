@@ -8,22 +8,22 @@ import {AiOutlineMenu} from "@react-icons/all-files/ai/AiOutlineMenu";
 import {VscChromeClose} from "@react-icons/all-files/vsc/VscChromeClose";
 import {FaChevronRight} from "@react-icons/all-files/fa/FaChevronRight";
 import {FaHeart} from '@react-icons/all-files/fa/FaHeart';
-import { IoPersonCircleOutline } from "@react-icons/all-files/io5/IoPersonCircleOutline";
+import {IoPersonCircleOutline} from "@react-icons/all-files/io5/IoPersonCircleOutline";
 import {useFavoriteContext} from "../../context/FavoriteContext";
 import {useCartContext} from "../../context/CartContext";
 
 
 export const Header: React.FC = () => {
-    const { openAuthModal } = useAuthContext();
+    const {openAuthModal} = useAuthContext();
     const isAuthenticated = useAuthCheck();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
     const navigate = useNavigate();
     const location = useLocation();
     const currentPath = location.pathname;
-    const { favoriteCount, setFavoriteCount, setFavoriteIds } = useFavoriteContext();
-    const { cartCount } = useCartContext();
-    const { token } = useAuthContext();
+    const {favoriteCount, setFavoriteCount, setFavoriteIds} = useFavoriteContext();
+    const {cartCount} = useCartContext();
+    const {token} = useAuthContext();
 
     useEffect(() => {
         const fetchFavorites = async () => {
@@ -94,66 +94,82 @@ export const Header: React.FC = () => {
     return (
         <header className="header">
             <button className="header__burger" aria-label="Открыть меню" onClick={toggleMenu}>
-                <AiOutlineMenu />
+                <AiOutlineMenu/>
             </button>
 
             <div className="header__logo">
                 <Link to="/">
-                    <img src={logotype} alt="Логотип" />
+                    <img src={logotype} alt="Логотип"/>
                 </Link>
             </div>
 
             <nav className={`header__nav nav ${isMenuOpen ? 'nav--open' : ''}`} aria-hidden={!isMenuOpen}>
                 <button className="header__nav-close" onClick={closeMenu} aria-label="Закрыть меню">
-                    <VscChromeClose />
+                    <VscChromeClose/>
                 </button>
 
                 <ul className="nav__list">
                     <li className="nav__item">
-                        <button
-                            className="nav__link nav__link--expandable"
-                            onClick={() => toggleSubmenu('catalog')}
-                            aria-expanded={openSubmenu === 'catalog'}
-                            aria-controls="submenu-catalog"
-                        >
+                        <button className="nav__link nav__link--expandable" onClick={() => toggleSubmenu('catalog')}
+                                aria-expanded={openSubmenu === 'catalog'} aria-controls="submenu-catalog">
                             Каталог
                             <FaChevronRight
                                 className={`nav__icon-right ${openSubmenu === 'catalog' ? 'nav__icon-right--open' : ''}`}
                             />
                         </button>
 
-                        <ul
-                            id="submenu-catalog"
+                        <ul id="submenu-catalog"
                             className={`submenu ${openSubmenu === 'catalog' ? 'submenu--open' : ''}`}
-                            aria-hidden={openSubmenu !== 'catalog'}
-                        >
+                            aria-hidden={openSubmenu !== 'catalog'}>
                             <li className="submenu__item">
-                                <Link
-                                    to="/catalog/monobouquet"
-                                    className={`submenu__link ${currentPath === '/catalog/monobouquet' ? 'submenu__link--active' : ''}`}
-                                    onClick={closeMenu}
-                                >
+                                <Link to="/catalog?category=монобукет"
+                                      className={`submenu__link ${currentPath === '/catalog?category=монобукет' ? 'submenu__link--active' : ''}`}
+                                      onClick={closeMenu}>
                                     Монобукеты
                                 </Link>
                             </li>
                             <li className="submenu__item">
-                                <Link
-                                    to="/catalog/duobouquet"
-                                    className={`submenu__link ${currentPath === '/catalog/duobouquet' ? 'submenu__link--active' : ''}`}
-                                    onClick={closeMenu}
-                                >
+                                <Link to="/catalog?category=дуобукет"
+                                      className={`submenu__link ${currentPath === '/catalog?category=дуобукет' ? 'submenu__link--active' : ''}`}
+                                      onClick={closeMenu}>
                                     Дуобукеты
                                 </Link>
                             </li>
                             <li className="submenu__item">
-                                <Link
-                                    to="/catalog/baskets"
-                                    className={`submenu__link ${currentPath === '/catalog/baskets' ? 'submenu__link--active' : ''}`}
-                                    onClick={closeMenu}
-                                >
-                                    Корзины с цветами
+                                <Link to="/catalog?category=цветочные+композиции"
+                                      className={`submenu__link ${currentPath === '/catalog?category=цветочные+композиции' ? 'submenu__link--active' : ''}`}
+                                      onClick={closeMenu}>
+                                    Цветочные композиции
                                 </Link>
                             </li>
+                            <li className="submenu__item">
+                                <Link to="/catalog?category=свадебные+букеты"
+                                      className={`submenu__link ${currentPath === '/catalog?category=свадебные+букеты' ? 'submenu__link--active' : ''}`}
+                                      onClick={closeMenu}>
+                                    Свадебные букеты
+                                </Link>
+                            </li>
+                            <li className="submenu__item">
+                                <Link to="/catalog?category=комнатные+растения"
+                                      className={`submenu__link ${currentPath === '/catalog?category=комнатные+растения' ? 'submenu__link--active' : ''}`}
+                                      onClick={closeMenu}>
+                                    Комнатные растения
+                                </Link>
+                            </li>
+                            <li className="submenu__item">
+                                <Link to="/catalog?category=открытки"
+                                      className={`submenu__link ${currentPath === '/catalog?category=открытки' ? 'submenu__link--active' : ''}`}
+                                      onClick={closeMenu}>
+                                    Открытки
+                                </Link>
+                            </li>
+                            <li className="submenu__item">
+                                <Link to="/catalog?category=подарочный+сертификат" onClick={closeMenu}
+                                      className={`submenu__link ${currentPath === '/catalog?category=подарочный+сертификат' ? 'submenu__link--active' : ''}`}>
+                                    Подарочный сертификат
+                                </Link>
+                            </li>
+
                             <li className="submenu__item">
                                 <Link
                                     to="/catalog"
@@ -185,23 +201,23 @@ export const Header: React.FC = () => {
                         >
                             <li className="submenu__item">
                                 <Link to="/delivery"
-                                    className={`submenu__link ${currentPath === '/delivery' ? 'submenu__link--active' : ''}`}
-                                    onClick={closeMenu}
+                                      className={`submenu__link ${currentPath === '/delivery' ? 'submenu__link--active' : ''}`}
+                                      onClick={closeMenu}
                                 >
                                     Доставка
                                 </Link>
                             </li>
                             <li className="submenu__item">
                                 <Link to="/payment"
-                                    className={`submenu__link ${currentPath === '/payment' ? 'submenu__link--active' : ''}`}
-                                    onClick={closeMenu}>
+                                      className={`submenu__link ${currentPath === '/payment' ? 'submenu__link--active' : ''}`}
+                                      onClick={closeMenu}>
                                     Оплата
                                 </Link>
                             </li>
                             <li className="submenu__item">
                                 <Link to="/faq"
-                                    className={`submenu__link ${currentPath === '/faq' ? 'submenu__link--active' : ''}`}
-                                    onClick={closeMenu}>
+                                      className={`submenu__link ${currentPath === '/faq' ? 'submenu__link--active' : ''}`}
+                                      onClick={closeMenu}>
                                     Вопрос-ответ
                                 </Link>
                             </li>
@@ -232,7 +248,7 @@ export const Header: React.FC = () => {
 
             <div className="actions">
                 <Link to="/lk/favorites" className="action-icon">
-                    <FaHeart />
+                    <FaHeart/>
                     {favoriteCount > 0 && (
                         <span className="favorite-count-badge">{favoriteCount}</span>
                     )}
@@ -245,17 +261,19 @@ export const Header: React.FC = () => {
 
                 {/*</Link>*/}
                 <Link to="/lk/cart" className="action-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M8 1a2 2 0 0 1 2 2v2H6V3a2 2 0 0 1 2-2m3 4V3a3 3 0 1 0-6 0v2H3.36a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.355a2.5 2.5 0 0 0 2.473-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5zm-1 1v1.5a.5.5 0 0 0 1 0V6h1.639a.5.5 0 0 1 .494.426l1.028 6.851A1.5 1.5 0 0 1 12.678 15H3.322a1.5 1.5 0 0 1-1.483-1.723l1.028-6.851A.5.5 0 0 1 3.36 6H5v1.5a.5.5 0 1 0 1 0V6z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         viewBox="0 0 16 16">
+                        <path
+                            d="M8 1a2 2 0 0 1 2 2v2H6V3a2 2 0 0 1 2-2m3 4V3a3 3 0 1 0-6 0v2H3.36a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.355a2.5 2.5 0 0 0 2.473-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5zm-1 1v1.5a.5.5 0 0 0 1 0V6h1.639a.5.5 0 0 1 .494.426l1.028 6.851A1.5 1.5 0 0 1 12.678 15H3.322a1.5 1.5 0 0 1-1.483-1.723l1.028-6.851A.5.5 0 0 1 3.36 6H5v1.5a.5.5 0 1 0 1 0V6z"/>
                     </svg>
                     {cartCount > 0 && (
                         <span className="cart-count-badge">{cartCount}</span>
                     )}
                 </Link>
                 <button onClick={handleProfileClick} aria-label={isAuthenticated ? "Перейти в личный кабинет" : "Войти"}
-                    className={`action-icon ${currentPath === '/lk' ? 'action-icon--active' : ''} icon-person`}
+                        className={`action-icon ${currentPath === '/lk' ? 'action-icon--active' : ''} icon-person`}
                 >
-                    <IoPersonCircleOutline />
+                    <IoPersonCircleOutline/>
                 </button>
             </div>
 

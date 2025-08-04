@@ -184,6 +184,11 @@ form button:hover {
     background-color: #D5B8F1;
 }
 
+.text-center {
+    text-align: center;
+    justify-content: center;
+}
+
 
 .auth-modal-content {
     /*max-width: 100%;*/

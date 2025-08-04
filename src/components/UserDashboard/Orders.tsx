@@ -29,7 +29,7 @@ export const Orders: React.FC<{ userId: number }> = ({userId}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [totalOrders, setTotalOrders] = useState(0);
-    const limit = 20;
+    const limit = 10;
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -181,10 +181,12 @@ export const Orders: React.FC<{ userId: number }> = ({userId}) => {
                                 Страница {currentPage} из {totalPages}
                             </span>
 
-                            <button onClick={handleNextPage} disabled={currentPage === totalPages}
-                                    className="pagination-btn">
-                                Вперед
-                            </button>
+                            {currentPage < totalPages && (
+                                <button onClick={handleNextPage} disabled={currentPage === totalPages}
+                                        className="pagination-btn">
+                                    Вперед
+                                </button>
+                            )}
                         </div>
                     )}
                 </>

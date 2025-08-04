@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { User } from '../types/user.type';
 
-const API_URL = 'http://localhost:5000/api/users';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 export const getUserProfile = async (): Promise<User> => {
     const token = localStorage.getItem('token');

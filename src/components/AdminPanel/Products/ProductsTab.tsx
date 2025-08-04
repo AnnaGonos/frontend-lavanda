@@ -140,7 +140,7 @@ export const ProductsTab: React.FC = () => {
                         </button>
 
                         <div className="admin-panel__filter">
-                            <label htmlFor="product-filter" className="form__label">Фильтр:</label>
+                            <label htmlFor="product-filter" className="form__label"></label>
                             <select id="product-filter" className="form__control" value={filter}
                                     onChange={(e) =>
                                         setFilter(e.target.value as 'all' | 'active' | 'archived')

@@ -13,7 +13,7 @@ export const sendOrderConfirmationEmail = async (
             to_email: customerEmail,
             customer_name: customerFirstName,
             order_number: orderData.orderNumber,
-            order_url: `http://localhost:3000/lk/orders`
+            order_url: `https://lavanda-ptz.onrender.com/lk/orders`
         };
 
         const result = await emailjs.send('service_kq98jxw', 'template_bfh06jn', templateParams);
