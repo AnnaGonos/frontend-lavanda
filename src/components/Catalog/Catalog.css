@@ -35,6 +35,10 @@
     margin-bottom: 20px;
 }
 
+.category-filter .active {
+    color: #555555;
+}
+
 .category-filter button {
     display: inline-block;
     text-transform: uppercase;

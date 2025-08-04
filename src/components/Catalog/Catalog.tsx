@@ -225,8 +225,7 @@ export const CatalogPage = () => {
                                 return (
                                     <Link to={`/product/${product.id}`} key={product.id}
                                           className="card__item-link" ref={isLast ? lastProductRef : undefined}>
-                                        <ProductCard
-                                            product={product}
+                                        <ProductCard product={product}
                                             isFavorite={token ? favorites.includes(product.id) : false}
                                             onNotify={showNotification}
                                             onToggleFavorite={handleToggleFavorite}
@@ -237,10 +236,8 @@ export const CatalogPage = () => {
                         </div>
                     )}
 
-                    {loadingMore && <LoadingOverlay text="Подгружаем ещё..."/>}
-                    {!hasMore && displayedProducts.length > 0 && (
-                        <p className="text-center">Все товары загружены</p>
-                    )}
+                    {loadingMore && <p className="text-center">Загружаем еще больше товаров...</p>}
+
                 </div>
             </section>
         </>
