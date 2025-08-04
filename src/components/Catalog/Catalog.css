@@ -37,6 +37,7 @@
 
 .category-filter .active {
     color: #555555;
+    font-weight: 900;
 }
 
 .category-filter button {

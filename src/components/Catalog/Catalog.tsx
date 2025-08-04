@@ -237,7 +237,6 @@ export const CatalogPage = () => {
                     )}
 
                     {loadingMore && <p className="text-center">Загружаем еще больше товаров...</p>}
-
                 </div>
             </section>
         </>
