@@ -12,40 +12,36 @@ const CatalogSection: React.FC = () => {
         <section className="catalog">
             <h2>Популярные категории</h2>
             <div className="catalog__grid">
-                <a href="/catalog/monobouquet" className="catalog__item">
+                <Link to="/catalog?category=монобукет"  className="catalog__item">
                     <p>Монобукеты</p>
                     <div className="catalog__item-image">
                         <img src={flowerMonobouquet} alt="Монобукеты" />
                     </div>
-                </a>
-
-                <a href="/catalog/wedding" className="catalog__item">
+                </Link>
+                <Link to="/catalog?category=свадебные+букеты" className="catalog__item">
                     <p>Свадебные букеты</p>
                     <div className="catalog__item-image">
                         <img src={flowerWedding} alt="Свадебные букеты" />
                     </div>
-                </a>
-
-                <a href="/catalog/postcards" className="catalog__item">
+                </Link>
+                <Link to="/catalog?category=открытки" className="catalog__item">
                     <p>Открытки</p>
                     <div className="catalog__item-image">
                         <img src={flowerPostcards} alt="Открытки" />
                     </div>
-                </a>
-
-                <a href="/catalog/composition" className="catalog__item">
+                </Link>
+                <Link to="/catalog?category=цветочные+композиции" className="catalog__item">
                     <p>Цветочные композиции</p>
                     <div className="catalog__item-image">
                         <img src={flowerComposition} alt="Цветочные композиции" />
                     </div>
-                </a>
-
-                <a href="/catalog/gifts" className="catalog__item">
+                </Link>
+                <Link to="/catalog?category=комнатные+растения" className="catalog__item">
                     <p>Комнатные растения</p>
                     <div className="catalog__item-image">
-                        <img src={flowerRoomPlants} alt="Вазы и подарки" />
+                        <img src={flowerRoomPlants} alt="Комнатные растения" />
                     </div>
-                </a>
+                </Link>
 
                 <Link to="/catalog" className="catalog__item catalog__item--view-all">
                     <div className="catalog__item-content">
