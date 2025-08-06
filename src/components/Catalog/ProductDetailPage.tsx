@@ -16,6 +16,7 @@ import {Notification, NotificationType} from '../Notification/Notification';
 import {LoadingOverlay} from "../LoadingOverlay/LoadingOverlay";
 import {useCartContext} from "../../context/CartContext";
 import {Review} from "../../types/review.types";
+import CategoryNotice from "./CategoryNotice";
 
 
 export const ProductDetailPage = () => {
@@ -306,6 +307,8 @@ export const ProductDetailPage = () => {
 
                         <p><strong>Состав:</strong> {product.composition}</p>
                         <p className="product-detail__description">{product.description}</p>
+
+                        <CategoryNotice category={product.category} />
                     </div>
                 </div>
             </section>
@@ -350,6 +353,7 @@ export const ProductDetailPage = () => {
                                                 <span>{review.rating} <FaStar/></span>
                                                 <small>{new Date(review.createdAt).toLocaleDateString('ru-RU')}</small>
                                             </div>
+
                                             <p className="review-description">{review.description}</p>
                                         </div>
 
