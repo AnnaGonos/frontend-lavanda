@@ -1,4 +1,4 @@
-.product-list, .admin-panel__main-navigation, .orders-page {
+.product-list, .admin-panel__main-navigation, .orders-page, .staff-table {
     padding: 0 40px;
 }
 
@@ -580,13 +580,51 @@
     gap: 5px;
 }
 
-.status-badge {
+.status-badge, .role-badge {
     display: inline-block;
     margin: 0;
     padding: 5px 10px;
     height: fit-content;
     width: fit-content;
     border-radius: 10px;
+}
+
+.role-admin {
+    background-color: #D2E0FB;
+    color: #5577ae;
+}
+
+/*.role-admin {*/
+/*    background-color: #f3e4ff;*/
+/*    color: #9c83df;*/
+/*}*/
+
+.role-florist {
+    background-color: #f3e4ff;
+    color: #9c83df;
+}
+
+.staff-table {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.staff-table thead tr,
+.staff-table tbody tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 0.5fr 0.5fr 0.5fr;
+    justify-items: flex-start;
+    padding: 10px;
+    align-items: center;
+    border-radius: 10px;
+    border: black solid 1px;
+}
+
+.staff-table thead tr {
+    color: white;
+    background-color: #000000;
 }
 
 .orders-filters {
@@ -668,7 +706,7 @@
         padding: 0 20px;
     }
 
-     .product-list, .admin-panel__main-navigation, .orders-page {
+     .product-list, .admin-panel__main-navigation, .orders-page, .staff-table {
         padding: 0 20px;
     }
 

@@ -6,6 +6,7 @@ import { FaCogs } from "@react-icons/all-files/fa/FaCogs";
 import {TiShoppingCart} from "@react-icons/all-files/ti/TiShoppingCart";
 import {GiCardboardBox} from "@react-icons/all-files/gi/GiCardboardBox";
 import { FaStarHalfAlt } from "@react-icons/all-files/fa/FaStarHalfAlt";
+import { MdPeople } from "@react-icons/all-files/md/MdPeople";
 
 
 export const AdminPanelButton: React.FC = () => {
@@ -56,6 +57,12 @@ export const AdminPanelButton: React.FC = () => {
                     <Link to="/admin/reviews" className="admin-panel-dropdown-item" onClick={closeDropdown}>
                         <FaStarHalfAlt/>
                         <span>Отзывы</span>
+                    </Link>
+
+
+                    <Link to="/admin/staffs" className="admin-panel-dropdown-item" onClick={closeDropdown}>
+                        <MdPeople />
+                        <span>Сотрудники</span>
                     </Link>
                 </div>
             )}

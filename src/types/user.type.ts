@@ -10,3 +10,8 @@ export interface User {
     totalOrders: number;
 }
 
+export enum UserRole {
+    USER = 'user',
+    ADMIN = 'admin',
+    FLORIST = 'florist',
+}

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import '../AdminPanel.css';
 import {Category, CategoryList} from "../../../types/category.type";
 
-import {AutoResizeTextarea} from "../Forms/AutoResizeTextarea";
+import {AutoResizeTextarea} from "../../Forms/AutoResizeTextarea";
 
 interface AddProductModalProps {
     onSubmit: (formData: FormData) => void;

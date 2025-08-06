@@ -1,0 +1,97 @@
+.review-rating-display {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 20px;
+    color: #555;
+}
+
+.star-active {
+    color: #D5B8F1;
+}
+
+.star-inactive {
+    color: #ddd;
+}
+
+.image-upload label {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 40px;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    border-radius: 10px;
+    max-height: 90vh;
+    overflow-y: auto;
+    width: 100%;
+    max-width: 500px;
+}
+
+.modal-close {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.review-modal__product-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.review-modal__product-details img, .image-preview img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.image-preview img {
+    width: 200px;
+    height: 200px;
+    margin-top: 10px;
+}
+
+.review-modal__product-details span {
+    font-size: 0.8rem;
+}
+
+.modal-content form button {
+    width: 100%;
+}
+
+
+@media screen and (max-width: 600px) {
+    .modal-content {
+        padding: 20px;
+    }
+
+    .modal-overlay {
+        padding: 10px;
+        width: calc(100% - 20px);
+    }
+
+}
+
+

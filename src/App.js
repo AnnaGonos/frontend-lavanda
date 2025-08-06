@@ -28,6 +28,7 @@ import {CartProvider} from "./context/CartContext";
 import {CheckoutPage} from "./pages/Cart/CheckoutPage";
 import {OrderSuccessPage} from "./pages/Cart/OrderSuccessPage";
 import {OrderDetails} from "./components/AdminPanel/Orders/OrderDetails";
+import {StaffsTab} from "./components/AdminPanel/Staffs/Staffs";
 
 const MainApp = () => {
 
@@ -128,6 +129,16 @@ const MainApp = () => {
                         <AdminRoute>
                             <PageWrapper>
                                 <ReviewsTab/>
+                            </PageWrapper>
+                        </AdminRoute>
+                    }
+                />
+                <Route
+                    path="/admin/staffs"
+                    element={
+                        <AdminRoute>
+                            <PageWrapper>
+                                <StaffsTab/>
                             </PageWrapper>
                         </AdminRoute>
                     }

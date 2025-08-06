@@ -1,5 +1,5 @@
 
-.card, .catalog, .product-detail {
+.card, .catalog, .product-detail, .product-reviews {
     padding: 0 40px;
 }
 
@@ -396,6 +396,96 @@
     color: #6C4795;
 }
 
+.product-detail__rating, .review-header__body, .review-header__body span, .review-comment__header {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.reviews-list, .review-header {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.review-item__content, .review-comments, .review-comment {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.review-header {
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
+
+.review-comment {
+    position: relative;
+}
+.review-icon-background {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0.15;
+    font-size: 30px;
+    margin-bottom: 15px;
+    color: #555555;
+    z-index: 0;
+}
+
+.review-header {
+    position: relative;
+    z-index: 1;
+}
+
+.review-comments {
+    gap: 10px;
+    margin-left: 40px;
+}
+
+.review-header, .review-comment {
+    gap: 5px;
+}
+
+.rating-stars, .review-item {
+    display: flex;
+    gap: 3px;
+}
+
+.review-item {
+    gap: 40px;
+    align-items: flex-end;
+}
+
+
+.rating-stars svg {
+    pointer-events: none;
+    width: 15px;
+    height: 15px;
+}
+
+.star-full {
+    color: #D5B8F1;
+}
+
+.star-half {
+    color: #D5B8F1;
+    clip-path: polygon(0 0, 50% 0, 50% 100%, 0% 100%);
+}
+
+.star-empty {
+    color: #ddd;
+}
+
+.review-image img {
+    height: 200px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
 
 /*.product-card__favorite .active svg{*/
 /*    color: #000000;*/
@@ -466,7 +556,7 @@
         padding: 0;
     }
 
-    .catalog, .product-detail {
+    .catalog, .product-detail, .product-reviews {
         padding: 0 20px;
     }
 
@@ -541,6 +631,24 @@
         margin: 0 0 5px 10px;
     }
 
+    .review-item {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .review-image img {
+        height: 100%;
+        width: 100%;
+        max-height: 300px;
+    }
+
+    .review-image img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
 }
 
 

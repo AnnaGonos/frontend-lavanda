@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAutoResizeTextArea } from '../../../hooks/useAutoResizeTextArea';
+import { useAutoResizeTextArea } from '../../hooks/useAutoResizeTextArea';
 
 interface Props {
     id: string;
@@ -7,6 +7,7 @@ interface Props {
     value: string | undefined;
     onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
     maxLength?: number;
+    placeholder?: string;
 }
 
 export const AutoResizeTextarea: React.FC<Props> = ({
@@ -15,6 +16,7 @@ export const AutoResizeTextarea: React.FC<Props> = ({
                                                         value,
                                                         onChange,
                                                         maxLength = 254,
+                                                        placeholder,
                                                     }) => {
     const displayValue = value ?? '';
     const textareaRef = useAutoResizeTextArea(displayValue);
@@ -35,8 +37,15 @@ export const AutoResizeTextarea: React.FC<Props> = ({
             )}
 
             <div className="form__textarea">
-                <textarea id={id} ref={textareaRef} className="form__control"
-                    value={displayValue} onChange={handleChange} maxLength={maxLength}/>
+                <textarea
+                    id={id}
+                    ref={textareaRef}
+                    className="form__control"
+                    value={displayValue}
+                    onChange={handleChange}
+                    maxLength={maxLength}
+                    placeholder={placeholder}
+                />
                 <p className="form__counter">
                     {displayValue.length}/{maxLength}
                 </p>

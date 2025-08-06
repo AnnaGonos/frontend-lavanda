@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Category, CategoryList} from '../../../types/category.type';
 import {Product} from '../../../types/product.types';
-import {AutoResizeTextarea} from "../Forms/AutoResizeTextarea";
+import {AutoResizeTextarea} from "../../Forms/AutoResizeTextarea";
 
 interface EditProductModalProps {
     product: Product;
